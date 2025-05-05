@@ -8,10 +8,13 @@ multiplication = int(number)
 mul = 1
 i = 1
 
+my_list = []
+
 while i <= range:
     sum = i * multiplication
-    print(sum)
+    my_list.append(sum)
     mul = sum
     i += 1
 
+print(f"number: {number} - length {length} ➞ {my_list}")
 # print(f"This took me a while")
