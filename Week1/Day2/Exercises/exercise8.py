@@ -28,6 +28,7 @@ data = [
 def ask_questions():
     correct = 0
     incorrect = 0
+    wrong_answers = []
 
     print("<----- Welcome to StarWarz Quiz ----->")
     print("Let’s test your knowledge")
@@ -44,7 +45,9 @@ def ask_questions():
         else:
             print("Incorrect")
             incorrect += 1
+            wrong_answers.append(user_answer)
         print("|-----------------------------|")
+    # print(wrong_answers)
     return correct, incorrect
 
 def print_result(correct, incorrect):
