@@ -25,30 +25,35 @@ data = [
     }
 ]
 
-print("<----- Welcome to StarWarz Quiz ----->")
-print("Let’s test your knowledge")
-print("|--------------------------------------------|")
+def ask_questions():
+    correct = 0
+    incorrect = 0
 
-correct = 0
-incorrect = 0
+    print("<----- Welcome to StarWarz Quiz ----->")
+    print("Let’s test your knowledge")
+    print("|--------------------------------------------|")
 
-for qst in data:
-    dic = dict(qst)
-    print(f"Question: ", dic["question"])
-    user_answer = input("Answer: ").lower()
-    # print(user_answer, "||||", dic["answer"])
-    if user_answer == dic["answer"].lower():
-        print("Correct")
-        correct += 1
-    else:
-        print("Incorrect")
-        incorrect += 1
-    print("|-----------------------------|")
+    for qst in data:
+        dic = dict(qst)
+        print(f"Question: ", dic["question"])
+        user_answer = input("Answer: ").lower()
+        # print(user_answer, "||||", dic["answer"])
+        if user_answer == dic["answer"].lower():
+            print("Correct")
+            correct += 1
+        else:
+            print("Incorrect")
+            incorrect += 1
+        print("|-----------------------------|")
+    return correct, incorrect
 
+def print_result(correct, incorrect):
+    print("|--------------------------------------------------------------------|")
+    print("|--------------------------- Final Result ---------------------------|")
+    print("|--------------------------------------------------------------------|")
 
-print("|--------------------------------------------------------------------|")
-print("|--------------------------- Final Result ---------------------------|")
-print("|--------------------------------------------------------------------|")
+    print(f"|---   You got ’{correct}’ correct questions and ’{incorrect}’ incorrect questions  ---|")
+    print("|____________________________________________________________________|")
 
-print(f"|---     You got {correct} correct questions and {incorrect} incorrect questions    ---|")
-print("|____________________________________________________________________|")
+correct, incorrect = ask_questions()
+print_result(correct, incorrect)
