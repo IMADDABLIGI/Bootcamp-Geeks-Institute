@@ -4,9 +4,9 @@ class Cat:
         self.age = cat_age
 
 
-cat1 = Cat("Soaad", 5)
+cat1 = Cat("Soaad", 3)
 cat2 = Cat("labo2a", 5)
-cat3 = Cat("Lisa", 5)
+cat3 = Cat("Lisa", 2)
 
 def find_oldest(obj1, obj2, obj3):
     if obj1.age >= obj2.age and obj1.age >= obj3.age:
@@ -17,4 +17,4 @@ def find_oldest(obj1, obj2, obj3):
         return obj3
     
 oldest_cat = find_oldest(cat1, cat2, cat3)
-print(f"The oldest cat is {oldest_cat.name}, and is {oldest_cat.age} years old.")
+print(f"The oldest cat is {oldest_cat.name}, and it's a {oldest_cat.age} years old cat.")
