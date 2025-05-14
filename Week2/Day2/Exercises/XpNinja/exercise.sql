@@ -1,4 +1,4 @@
-SELECT *
+SELECT * FROM actors;SELECT *
 FROM customer
 ORDER BY first_name ASC
 OFFSET (
