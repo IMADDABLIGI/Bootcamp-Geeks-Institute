@@ -11,7 +11,7 @@ class MenuItem:
         self.price = price
 
     def run_query(self, query, values=None, is_result=False):
-        result = ''
+        result = 'Succesful run'
         try:
             connect = psycopg2.connect(
                 host=HOSTNAME, 
@@ -22,12 +22,13 @@ class MenuItem:
             print(f"Error: {e}")
         
         cursor = connect.cursor()
-        cursor.execute(query)
+        cursor.execute(query, values)
         connect.commit()
         if is_result:
             result = cursor.fetchall()
         connect.close()
         return result
+
         
 
     def save(self):
@@ -38,11 +39,18 @@ class MenuItem:
         self.run_query(save_item, (self.name, self.price))
 
     def delete(self):
-        delete_item = f"DELETE FROM menu_items  WHERE item_name = '{self.name}';"
-        self.run_query(delete_item)
+        delete_item = f'''DELETE FROM menu_items  WHERE item_name = %s;'''
+        self.run_query(delete_item, (self.name,))
     
     def update(self, name, price):
-        pass
+        update_query = '''
+                    UPDATE menu_items
+                    SET item_name = %s, item_price = %s
+                    WHERE item_name = %s;
+                    '''
+        self.run_query(update_query, (name, price, self.name))
+        self.name = name
+        self.price = price
 
 
 if __name__ == "__main__":
@@ -55,9 +63,7 @@ if __name__ == "__main__":
                 '''
     # MenuItem.run_query(create_table_qr)
     danon = MenuItem("Danon", 5)
-    danon.delete()
 
-
-# sql = "INSERT INTO customers (name, address) VALUES (%s, %s)"
-# val = ("John", "Highway 21")
-# mycursor.execute(sql, val)
+    danon.save()
+    # danon.delete()
+    danon.update("Hrirra", 8)
