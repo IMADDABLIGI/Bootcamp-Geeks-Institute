@@ -60,8 +60,6 @@ class MenuManager():
         
     
 
-
-
 if __name__ == "__main__":
     item2 = MenuManager.get_by_name('Veggie Burgy')
     print(item2)
