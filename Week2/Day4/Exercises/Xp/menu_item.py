@@ -29,8 +29,6 @@ class MenuItem:
         connect.close()
         return result
 
-        
-
     def save(self):
         save_item = f'''
                     INSERT INTO menu_items(item_name, item_price)
@@ -53,17 +51,17 @@ class MenuItem:
         self.price = price
 
 
-if __name__ == "__main__":
-    create_table_qr = f'''
-                CREATE TABLE Menu_Items(
-                    item_id SERIAL PRIMARY KEY,
-                    item_name VARCHAR(30) NOT NULL,
-                    item_price SMALLINT DEFAULT 0
-                )
-                '''
-    # MenuItem.run_query(create_table_qr)
-    danon = MenuItem("Danon", 5)
 
-    danon.save()
-    # danon.delete()
-    danon.update("Hrirra", 8)
+if __name__ == "__main__":
+    # create_table_qr = f'''
+    #             CREATE TABLE Menu_Items(
+    #                 item_id SERIAL PRIMARY KEY,
+    #                 item_name VARCHAR(30) NOT NULL,
+    #                 item_price SMALLINT DEFAULT 0
+    #             )
+    #             '''
+    
+    item = MenuItem('Burger', 35)
+    item.save()
+    # item.delete()
+    item.update('Veggie Burgy', 37)
