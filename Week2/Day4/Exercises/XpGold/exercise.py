@@ -48,6 +48,6 @@ try:
 
 except Exception as e:
     print("\nError: ", e)
-    # print("\n\n>- THALA -<\n")
+    print("\n\n>- THALA -<\n")
 
 
