@@ -1,7 +1,11 @@
 import logging
 from fastapi import FastAPI, HTTPException
 from users import users
+from user_passport import user_passport
 from pydantic import BaseModel
+from datetime import date
+
+
 
 class UserCreate(BaseModel):
     first_name: str
@@ -14,6 +18,14 @@ class UserUpdateRequest(BaseModel):
     user_id: int
     first_name: str
     last_name: str
+
+class PassportCreate(BaseModel):
+    user_id: int
+    nationality: str
+    expire_date: date
+
+class PassportDeleteRequest(BaseModel):
+    passport_id: int
 
 # Configure logging - helps with debugging and monitoring
 logging.basicConfig(level=logging.INFO)
@@ -54,7 +66,7 @@ async def create_user(data: UserCreate):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@app.delete("/users/")
+@app.delete("/users")
 async def delete_user(data: UserDeleteRequest):
     try:
         result = users.delete(data.user_id)
@@ -75,6 +87,63 @@ async def update_user(data: UserUpdateRequest):
         if not result:
             raise HTTPException(status_code=404, detail=f"User with ID {data.user_id} not found")
         return {"message": result}
+
+
+# Passport-----------------------------------
+
+
+@app.post("/passport/register")
+async def create_passport(data: PassportCreate):
+    try:
+        result = user_passport.create(data.user_id, data.nationality, data.expire_date)
+        return {"message": result}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@app.get("/passport")
+async def read_all_passports():
+    try:
+        result = user_passport.read_all()
+        return {"passports": result}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@app.get("/passport/{user_id}")
+async def read_passport(user_id: int):
+    try:
+        result = user_passport.read(user_id)
+        if not result:
+            raise HTTPException(status_code=404, detail="Passport not found for this user")
+        return {"passport": result}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@app.delete("/passport")
+async def delete_passport(data: PassportDeleteRequest):
+    try:
+        result = user_passport.delete(data.passport_id)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    finally:
+        if not result:
+            raise HTTPException(status_code=404, detail="Passport not found")
+        return {"message": result}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
