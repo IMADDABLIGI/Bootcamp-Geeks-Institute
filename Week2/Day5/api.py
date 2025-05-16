@@ -10,14 +10,18 @@ class UserCreate(BaseModel):
 class UserDeleteRequest(BaseModel):
     user_id: int
 
+class UserUpdateRequest(BaseModel):
+    user_id: int
+    first_name: str
+    last_name: str
+
 # Configure logging - helps with debugging and monitoring
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
-
-
+@app.get("/")
 @app.get("/users")
 async def get_users():
     try:
@@ -34,12 +38,12 @@ async def get_user(user_id):
         result = users.read(user_id)
         # logger.info(result)
 
-        if not result:
-            raise HTTPException(status_code=404, detail=f"User with ID {user_id} not found")
-        
-        return result
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+    finally:
+        if not result:
+            raise HTTPException(status_code=404, detail=f"User with ID {user_id} not found")
+        return result
 
 
 @app.post("/users/register")
@@ -54,17 +58,23 @@ async def create_user(data: UserCreate):
 async def delete_user(data: UserDeleteRequest):
     try:
         result = users.delete(data.user_id)
-        return {"message": result}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+    finally:
+        if not result:
+            raise HTTPException(status_code=404, detail=f"User with ID {data.user_id} not found")
+        return {"message": result}
 
-@app.post("/users/{user_id}")
-async def update_user(user_id: int, first_name: str, last_name: str):
+@app.post("/users/update")
+async def update_user(data: UserUpdateRequest):
     try:
-        result = users.update(first_name, last_name, user_id)
-        return {"message": result}
+        result = users.update(data.user_id, data.first_name, data.last_name)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+    finally:
+        if not result:
+            raise HTTPException(status_code=404, detail=f"User with ID {data.user_id} not found")
+        return {"message": result}
 
 
 if __name__ == "__main__":

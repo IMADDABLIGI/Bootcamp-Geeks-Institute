@@ -28,6 +28,7 @@ class users():
         self.cursor.execute(query)
         self.connect.commit()
         result = self.cursor.fetchall()
+        # print(result)
         return (result)
     
     @classmethod
@@ -78,7 +79,7 @@ class users():
             return f"User userid:‘{user_id}‘ has been deleted successfully."
     
     @classmethod
-    def update(cls, first_name, last_name, user_id):
+    def update(cls, user_id, first_name, last_name):
         self = cls()
 
         cls.check("update", first_name, last_name, user_id)
@@ -165,17 +166,17 @@ if __name__ == "__main__":
     # print(users.read('10'))
     # print(users.delete(2))
     try:
-        users.create('Imad', 'Dabligi')
-        users.create('Hamza', 'Idrissi')
-        users.create('Soad', 'Dbaba')
-        users.create('Halima', 'Idrissi')
-        users.create('Yassin', 'Faill')
-        users.create('Ypussef', 'Hrimat')
-        users.create('Dokali', 'Yajour')
+        # users.create('Imad', 'Dabligi')
+        # users.create('Hamza', 'Idrissi')
+        # users.create('Soad', 'Dbaba')
+        # users.create('Halima', 'Idrissi')
+        # users.create('Yassin', 'Faill')
+        # users.create('Ypussef', 'Hrimat')
+        # users.create('Dokali', 'Yajour')
         # print(users.update("Hmad", "Smailli", 4))
 
         # print(users.read('1'))
-        # print(users.read_all())
+        print(users.read_all())
     
     except Exception as e:
         print("error: ", e)
