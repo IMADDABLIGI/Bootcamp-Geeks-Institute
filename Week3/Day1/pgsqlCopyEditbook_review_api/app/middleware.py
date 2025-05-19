@@ -2,10 +2,8 @@ from fastapi import HTTPException, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import jwt, JWTError
 from database import get_db_connection  # Import your DB connection function from its actual file
-# from config import SECRET_KEY, ALGORITHM  # Adjust if needed
+from config import SECRET_KEY, ALGORITHM
 
-SECRET_KEY = "MacBook Air is better than Pro"
-ALGORITHM = "HS256"
 
 security = HTTPBearer()
 

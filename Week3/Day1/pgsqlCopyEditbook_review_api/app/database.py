@@ -1,9 +1,5 @@
 import psycopg2
-
-HOSTNAME = 'localhost'
-USERNAME = 'hicham'
-PASSWORD = 'root'
-DATABASE = 'BooksReviews'
+from config import HOSTNAME, USERNAME, PASSWORD, DATABASE
 
 def get_db_connection():
     return psycopg2.connect(
