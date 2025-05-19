@@ -12,7 +12,6 @@ class AdminUser(BaseModel):
     username: str
     password: str
 
-
 @router.post("/admin/create-user")
 async def admin_create_user(new_user: AdminUser, payload: dict = Depends(verify_token)):
     if not payload.get("isAdmin"):
