@@ -8,6 +8,7 @@ from passlib.hash import bcrypt
 from jose import jwt
 from datetime import datetime, timedelta
 from middleware import verify_token
+from database import get_db_connection
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -20,22 +21,12 @@ SECRET_KEY = "MacBook Air is better than Pro"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
-HOSTNAME = 'localhost'
-USERNAME = 'hicham'
-PASSWORD = 'root'
-DATABASE = 'BooksReviews'
 
 class User(BaseModel):
     username: str
     password: str
 
-def get_db_connection():
-    return psycopg2.connect(
-        host=HOSTNAME,
-        user=USERNAME,
-        password=PASSWORD,
-        dbname=DATABASE
-    )
+
 
 
 @app.get("/")
