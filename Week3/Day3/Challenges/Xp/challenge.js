@@ -23,7 +23,7 @@ const planetColors = [
 
 const parentElement = document.getElementsByTagName("section")[0]
 
-console.log(parentElement)
+// console.log(parentElement)
 
 
 for (let i = 0; i<planets.length; i++){
