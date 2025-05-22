@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Double Slider Sign In/Up</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .container {
+      transition: transform 0.6s ease-in-out;
+    }
+    .right-panel-active .container {
+      transform: translateX(-100%);
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+
+  <div class="w-[768px] h-[480px] bg-white shadow-xl rounded-lg overflow-hidden relative">
+    <!-- Sign In / Sign Up Container -->
+    <div id="slider" class="flex w-[200%] h-full container">
+      <!-- Sign In -->
+      <div class="w-1/2 h-full flex flex-col items-center justify-center p-8">
+        <h2 class="text-2xl font-bold mb-4">Sign In</h2>
+        <input type="text" placeholder="Email" class="mb-3 w-full px-4 py-2 border rounded-md" />
+        <input type="password" placeholder="Password" class="mb-3 w-full px-4 py-2 border rounded-md" />
+        <button class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition">Sign In</button>
+      </div>
+
+      <!-- Sign Up -->
+      <div class="w-1/2 h-full flex flex-col items-center justify-center p-8">
+        <h2 class="text-2xl font-bold mb-4">Sign Up</h2>
+        <input type="text" placeholder="Name" class="mb-3 w-full px-4 py-2 border rounded-md" />
+        <input type="text" placeholder="Email" class="mb-3 w-full px-4 py-2 border rounded-md" />
+        <input type="password" placeholder="Password" class="mb-3 w-full px-4 py-2 border rounded-md" />
+        <button class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition">Sign Up</button>
+      </div>
+    </div>
+
+    <!-- Overlay Panels -->
+    <div class="absolute top-0 left-0 w-full h-full flex">
+      <div class="w-1/2 h-full flex flex-col items-center justify-center bg-blue-500 text-white p-6">
+        <h2 class="text-2xl font-bold mb-2">New here?</h2>
+        <p class="mb-4">Sign up and start your journey with us.</p>
+        <button id="signUpBtn" class="bg-white text-blue-500 px-4 py-2 rounded-md hover:bg-gray-200">Sign Up</button>
+      </div>
+      <div class="w-1/2 h-full flex flex-col items-center justify-center bg-green-500 text-white p-6">
+        <h2 class="text-2xl font-bold mb-2">Welcome Back!</h2>
+        <p class="mb-4">To keep connected with us please login.</p>
+        <button id="signInBtn" class="bg-white text-green-500 px-4 py-2 rounded-md hover:bg-gray-200">Sign In</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slider = document.getElementById('slider');
+    const signUpBtn = document.getElementById('signUpBtn');
+    const signInBtn = document.getElementById('signInBtn');
+
+    signUpBtn.addEventListener('click', () => {
+      slider.classList.add('right-panel-active');
+    });
+
+    signInBtn.addEventListener('click', () => {
+      slider.classList.remove('right-panel-active');
+    });
+  </script>
+
+</body>
+</html>
