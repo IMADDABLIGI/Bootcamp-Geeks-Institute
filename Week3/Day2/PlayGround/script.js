@@ -9,6 +9,8 @@ let globalAddress = `I live in ${addressNumber} ${addressStreet}, in ${country}`
 document.getElementById("displayAddress").innerText = globalAddress;
 
 
+// console.log(document.element.parentNode)
+
 
 
 let i = 0;
