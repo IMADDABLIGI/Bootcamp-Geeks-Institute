@@ -1,0 +1,29 @@
+/* styles.css */
+body {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: white;
+}
+
+.drum-container {
+  margin-top: 50px;
+}
+
+.drum {
+  font-size: 24px;
+  margin: 10px;
+  padding: 20px 30px;
+  border: none;
+  border-radius: 10px;
+  background-color: #444;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.drum:active,
+.drum.playing {
+  background-color: #ff4757;
+  transform: scale(1.1);
+}
