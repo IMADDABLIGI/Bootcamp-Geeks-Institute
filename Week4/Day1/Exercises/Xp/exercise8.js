@@ -7,6 +7,7 @@
 
   function displayJuice() {
     const sentence = `The client wants a ${sizeDrink} juice, containing ${ingredients.join(', ')}.`;
+    // console.log(sentence);
     const body = document.querySelector('body');
     const p = document.createElement('p');
     p.textContent = sentence;
