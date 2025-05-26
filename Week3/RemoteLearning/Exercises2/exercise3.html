@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #target {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            background: yellow;
+            border: 2px dashed #ccc;
+            margin-bottom: 20px;
+        }
+        
+        #target.drag-over {
+            border-color: #007bff;
+            background: lightyellow;
+        }
+        
+        #box {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            background-color: red;
+            cursor: move;
+            user-select: none;
+        }
+        
+        #box.dragging {
+            opacity: 0.5;
+            z-index: 1000;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        
+        .instructions {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">
+        <strong>Instructions:</strong> Drag the red box and drop it into the yellow target area.
+    </div>
+    
+    <div id="target"></div>
+    <div id="box"></div>
+
+    <script>
+        let isDragging = false;
+        let startX, startY, initialLeft, initialTop;
+        
+        const box = document.getElementById('box');
+        const target = document.getElementById('target');
+        
+        // Mouse down event - start dragging
+        box.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            box.classList.add('dragging');
+            
+            // Get initial mouse position
+            startX = e.clientX;
+            startY = e.clientY;
+            
+            // Get initial box position
+            const rect = box.getBoundingClientRect();
+            initialLeft = rect.left;
+            initialTop = rect.top;
+            
+            // Prevent text selection
+            e.preventDefault();
+        });
+        
+        // Mouse move event - drag the box
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            
+            // Calculate new position
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            
+            const newLeft = initialLeft + deltaX;
+            const newTop = initialTop + deltaY;
+            
+            // Update box position
+            box.style.left = newLeft + 'px';
+            box.style.top = newTop + 'px';
+            
+            // Check if box is over target
+            const boxRect = box.getBoundingClientRect();
+            const targetRect = target.getBoundingClientRect();
+            
+            if (isOverlapping(boxRect, targetRect)) {
+                target.classList.add('drag-over');
+            } else {
+                target.classList.remove('drag-over');
+            }
+        });
+        
+        // Mouse up event - stop dragging and check drop
+        document.addEventListener('mouseup', function(e) {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            box.classList.remove('dragging');
+            target.classList.remove('drag-over');
+            
+            // Check if box is dropped in target area
+            const boxRect = box.getBoundingClientRect();
+            const targetRect = target.getBoundingClientRect();
+            
+            if (isOverlapping(boxRect, targetRect)) {
+                // Snap box to center of target
+                const targetCenterX = targetRect.left + targetRect.width / 2 - box.offsetWidth / 2;
+                const targetCenterY = targetRect.top + targetRect.height / 2 - box.offsetHeight / 2;
+                
+                box.style.left = targetCenterX + 'px';
+                box.style.top = targetCenterY + 'px';
+                
+                // Visual feedback for successful drop
+                target.style.background = 'lightgreen';
+                setTimeout(() => {
+                    target.style.background = 'yellow';
+                }, 500);
+            }
+        });
+        
+        // Helper function to check if two rectangles overlap
+        function isOverlapping(rect1, rect2) {
+            return !(rect1.right < rect2.left || 
+                    rect1.left > rect2.right || 
+                    rect1.bottom < rect2.top || 
+                    rect1.top > rect2.bottom);
+        }
+        
+        // Prevent default drag behavior on the box
+        box.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
