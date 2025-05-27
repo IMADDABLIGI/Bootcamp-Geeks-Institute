@@ -2,7 +2,6 @@
 
 // 2 We will get an error bcs U cant reassign a const variable AGAIN :/
 
-// 
 
 function funcFour() {
     window.a = "hello";
