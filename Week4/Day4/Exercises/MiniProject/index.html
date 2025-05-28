@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Generator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+
+        .quote-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .quote-text {
+            font-size: 1.2em;
+            font-style: italic;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .quote-author {
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .quote-stats {
+            margin-top: 15px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        button {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+        }
+
+        .generate-btn {
+            background: #48bb78;
+            font-size: 18px;
+            padding: 15px 30px;
+        }
+
+        .generate-btn:hover {
+            background: #38a169;
+        }
+
+        .like-btn {
+            background: #ed8936;
+        }
+
+        .like-btn:hover {
+            background: #dd6b20;
+        }
+
+        .nav-btn {
+            background: #805ad5;
+        }
+
+        .nav-btn:hover {
+            background: #6b46c1;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #e2e8f0;
+        }
+
+        form h3 {
+            margin-top: 0;
+            color: #4a5568;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .button-group {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .stats-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .author-info {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+            .stats-buttons {
+                flex-direction: column;
+            }
+            
+            .filter-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Quote Generator</h1>
+        
+        <!-- Quote Display Section -->
+        <section id="quote-section" class="quote-display">
+            <div class="quote-text">Click "Generate Quote" to see an inspiring quote!</div>
+            <div class="quote-author"></div>
+            <div class="quote-stats"></div>
+        </section>
+
+        <!-- Generate Quote Button -->
+        <div class="button-group">
+            <button id="generate-btn" class="generate-btn">Generate Quote</button>
+        </div>
+
+        <!-- Quote Statistics Buttons -->
+        <div id="stats-section" class="stats-buttons hidden">
+            <button id="chars-with-spaces">Characters (with spaces)</button>
+            <button id="chars-without-spaces">Characters (without spaces)</button>
+            <button id="word-count">Word Count</button>
+            <button id="like-btn" class="like-btn">❤️ Like (0)</button>
+        </div>
+
+        <!-- Add New Quote Form -->
+        <form id="add-quote-form" class="section">
+            <h3>Add New Quote</h3>
+            <textarea id="quote-input" placeholder="Enter your quote here..." required></textarea>
+            <input type="text" id="author-input" placeholder="Author name" required>
+            <div class="button-group">
+                <button type="submit">Add Quote</button>
+            </div>
+        </form>
+
+        <!-- Filter Form -->
+        <form id="filter-form" class="section">
+            <h3>Filter by Author</h3>
+            <input type="text" id="author-filter" placeholder="Enter author name to filter">
+            <div class="button-group">
+                <button type="submit">Filter Quotes</button>
+                <button type="button" id="clear-filter">Show All Quotes</button>
+            </div>
+        </form>
+
+        <!-- Navigation Controls for Filtered Results -->
+        <div id="navigation-controls" class="filter-controls hidden">
+            <button id="prev-btn" class="nav-btn">⬅️ Previous</button>
+            <div class="author-info">
+                <span id="current-position"></span>
+            </div>
+            <button id="next-btn" class="nav-btn">➡️ Next</button>
+        </div>
+    </div>
+
+    <script>
+        // Quote array with initial quotes
+        let quotes = [
+            {
+                id: 0,
+                author: "Albert Einstein",
+                quote: "Life is like riding a bicycle. To keep your balance, you must keep moving.",
+                likes: 0
+            },
+            {
+                id: 1,
+                author: "Maya Angelou",
+                quote: "If you don't like something, change it. If you can't change it, change your attitude.",
+                likes: 0
+            },
+            {
+                id: 2,
+                author: "Steve Jobs",
+                quote: "Innovation distinguishes between a leader and a follower.",
+                likes: 0
+            },
+            {
+                id: 3,
+                author: "Oscar Wilde",
+                quote: "Be yourself; everyone else is already taken.",
+                likes: 0
+            },
+            {
+                id: 4,
+                author: "Maya Angelou",
+                quote: "You will face many defeats in life, but never let yourself be defeated.",
+                likes: 0
+            },
+            {
+                id: 5,
+                author: "Albert Einstein",
+                quote: "Try not to become a person of success, but rather try to become a person of value.",
+                likes: 0
+            }
+        ];
+
+        // Global variables
+        let currentQuote = null;
+        let lastQuoteId = null;
+        let filteredQuotes = [];
+        let currentFilterIndex = 0;
+        let isFiltered = false;
+
+        // DOM elements
+        const quoteSection = document.getElementById('quote-section');
+        const generateBtn = document.getElementById('generate-btn');
+        const statsSection = document.getElementById('stats-section');
+        const addQuoteForm = document.getElementById('add-quote-form');
+        const filterForm = document.getElementById('filter-form');
+        const navigationControls = document.getElementById('navigation-controls');
+
+        // Generate random quote function
+        function generateRandomQuote() {
+            let randomQuote;
+            
+            // Ensure we don't show the same quote twice in a row
+            do {
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                randomQuote = quotes[randomIndex];
+            } while (randomQuote.id === lastQuoteId && quotes.length > 1);
+            
+            lastQuoteId = randomQuote.id;
+            currentQuote = randomQuote;
+            displayQuote(randomQuote);
+        }
+
+        // Display quote function
+        function displayQuote(quote) {
+            const quoteText = quoteSection.querySelector('.quote-text');
+            const quoteAuthor = quoteSection.querySelector('.quote-author');
+            const quoteStats = quoteSection.querySelector('.quote-stats');
+            
+            quoteText.textContent = `"${quote.quote}"`;
+            quoteAuthor.textContent = `— ${quote.author}`;
+            quoteStats.textContent = '';
+            
+            // Update like button
+            document.getElementById('like-btn').textContent = `❤️ Like (${quote.likes})`;
+            
+            // Show stats buttons
+            statsSection.classList.remove('hidden');
+        }
+
+        // Quote statistics functions
+        function getCharactersWithSpaces(text) {
+            return text.length;
+        }
+
+        function getCharactersWithoutSpaces(text) {
+            return text.replace(/\s/g, '').length;
+        }
+
+        function getWordCount(text) {
+            return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+        }
+
+        // Add new quote function
+        function addNewQuote(quoteText, author) {
+            const newId = quotes.length > 0 ? Math.max(...quotes.map(q => q.id)) + 1 : 0;
+            const newQuote = {
+                id: newId,
+                author: author.trim(),
+                quote: quoteText.trim(),
+                likes: 0
+            };
+            quotes.push(newQuote);
+            return newQuote;
+        }
+
+        // Filter quotes by author
+        function filterQuotesByAuthor(authorName) {
+            return quotes.filter(quote => 
+                quote.author.toLowerCase().includes(authorName.toLowerCase())
+            );
+        }
+
+        // Display filtered quote with navigation
+        function displayFilteredQuote(quotes, index) {
+            if (quotes.length === 0) {
+                quoteSection.querySelector('.quote-text').textContent = 'No quotes found for this author.';
+                quoteSection.querySelector('.quote-author').textContent = '';
+                quoteSection.querySelector('.quote-stats').textContent = '';
+                navigationControls.classList.add('hidden');
+                statsSection.classList.add('hidden');
+                return;
+            }
+
+            currentQuote = quotes[index];
+            displayQuote(currentQuote);
+            
+            // Update navigation info
+            document.getElementById('current-position').textContent = 
+                `${index + 1} of ${quotes.length} quotes by ${quotes[index].author}`;
+            
+            // Enable/disable navigation buttons
+            document.getElementById('prev-btn').disabled = index === 0;
+            document.getElementById('next-btn').disabled = index === quotes.length - 1;
+            
+            navigationControls.classList.remove('hidden');
+        }
+
+        // Event Listeners
+        generateBtn.addEventListener('click', () => {
+            isFiltered = false;
+            navigationControls.classList.add('hidden');
+            generateRandomQuote();
+        });
+
+        // Statistics buttons
+        document.getElementById('chars-with-spaces').addEventListener('click', () => {
+            if (currentQuote) {
+                const count = getCharactersWithSpaces(currentQuote.quote);
+                quoteSection.querySelector('.quote-stats').textContent = 
+                    `Characters (with spaces): ${count}`;
+            }
+        });
+
+        document.getElementById('chars-without-spaces').addEventListener('click', () => {
+            if (currentQuote) {
+                const count = getCharactersWithoutSpaces(currentQuote.quote);
+                quoteSection.querySelector('.quote-stats').textContent = 
+                    `Characters (without spaces): ${count}`;
+            }
+        });
+
+        document.getElementById('word-count').addEventListener('click', () => {
+            if (currentQuote) {
+                const count = getWordCount(currentQuote.quote);
+                quoteSection.querySelector('.quote-stats').textContent = 
+                    `Word count: ${count}`;
+            }
+        });
+
+        document.getElementById('like-btn').addEventListener('click', () => {
+            if (currentQuote) {
+                currentQuote.likes++;
+                document.getElementById('like-btn').textContent = `❤️ Like (${currentQuote.likes})`;
+            }
+        });
+
+        // Add quote form
+        addQuoteForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const quoteInput = document.getElementById('quote-input');
+            const authorInput = document.getElementById('author-input');
+            
+            if (quoteInput.value.trim() && authorInput.value.trim()) {
+                addNewQuote(quoteInput.value, authorInput.value);
+                quoteInput.value = '';
+                authorInput.value = '';
+                alert('Quote added successfully!');
+            }
+        });
+
+        // Filter form
+        filterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const authorFilter = document.getElementById('author-filter').value.trim();
+            
+            if (authorFilter) {
+                filteredQuotes = filterQuotesByAuthor(authorFilter);
+                currentFilterIndex = 0;
+                isFiltered = true;
+                displayFilteredQuote(filteredQuotes, currentFilterIndex);
+            }
+        });
+
+        // Clear filter
+        document.getElementById('clear-filter').addEventListener('click', () => {
+            isFiltered = false;
+            navigationControls.classList.add('hidden');
+            document.getElementById('author-filter').value = '';
+            generateRandomQuote();
+        });
+
+        // Navigation buttons
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (isFiltered && currentFilterIndex > 0) {
+                currentFilterIndex--;
+                displayFilteredQuote(filteredQuotes, currentFilterIndex);
+            }
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (isFiltered && currentFilterIndex < filteredQuotes.length - 1) {
+                currentFilterIndex++;
+                displayFilteredQuote(filteredQuotes, currentFilterIndex);
+            }
+        });
+    </script>
+</body>
+</html>
