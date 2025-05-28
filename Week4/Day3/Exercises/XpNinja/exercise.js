@@ -6,7 +6,7 @@ class Bird {
 
 class Flamingo extends Bird {
   constructor() {
-    console.log("I'm pink. 🌸");
+    console.log("I'm Flamingo. 🌸");
     super();
   }
 }
