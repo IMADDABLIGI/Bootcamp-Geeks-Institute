@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="myForm" name="myForm"  method="GET">
+        <!-- <label for="name">Name</label> -->
+        <input id="name" type="text" name="name" value="">
+        <!-- <label for="comments"> Comments</label> -->
+        <input id="lastName" type="text" name="comments" value="">
+        <input type="submit" value="Send" class="submit">
+    </form>
+    <p id="sentence"></p>
+
+    <script>
+        const form = document.getElementById("myForm")
+        form.addEventListener("submit", (event) => {
+            event.preventDefault()
+            const name = document.getElementById("name").value
+            const lastName = document.getElementById("lastName").value
+            // console.log(name, lastName)
+            const sentence = document.getElementById("sentence");
+            sentence.textContent = `{"name": "${name}","lastname": "${lastName}"}`
+        })
+        console.log(form);
+    </script>
+</body>
+</html>
