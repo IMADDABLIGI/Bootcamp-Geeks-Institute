@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .form{
+            display: flex;
+            flex-direction: column;
+            height: 200px;
+            width: 200px;
+            padding: 50px;
+            background-color: gray;
+            gap: 5px;
+            font-size: 20px;
+        }
+        .form .submit{
+            width: 100px;
+            margin-top: 20px;
+            background-color: antiquewhite;
+        }
+        .form .submit:hover{
+            background-color: wheat;
+        }
+    </style>
+</head>
+<body>
+    <form id="myform" class="form" name="my" action="display.html" method="GET">
+        <label for="name">NAME</label>
+        <input id="name" type="text" name="name" value="">
+        <label for="name">LAST NAME</label>
+        <input id="lastName" type="text" name="lastName" value="">
+        <input type="submit" value="Send" class="submit">
+    </form>
+</body>
+</body>
+</html>
