@@ -12,6 +12,6 @@ const test = () => {
     )
 }
 
-test().then( () =>
+test().then(() =>
     console.log("After Test")
 )
