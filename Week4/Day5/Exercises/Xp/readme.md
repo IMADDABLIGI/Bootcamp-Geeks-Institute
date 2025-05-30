@@ -1,1 +1,1 @@
-<img src="./assets/bg1.png" alt="Preview" width="300"/>
+<img src="./assets/screenShoot.png" alt="Preview" width="600"/>
