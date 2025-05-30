@@ -10,7 +10,7 @@
         }
         .home {
             display: flex;
-            height: 100svh;
+            min-height: 100svh;
             width: 100%;
             /* border: 1px solid red; */
             flex-direction: column;
@@ -37,7 +37,8 @@
 
         .home_body{
             display: flex;
-            height: 100%;
+            min-height: 100svh; /* or 100vh */
+            padding-bottom: 40px;
             justify-content: center;
             padding-top: 100px;
             background-color: #4b31a1;
@@ -45,36 +46,56 @@
         }
         .home_body .robots_ctr{
             display: flex;
-            border: wheat 3px solid;
+            /* border: wheat 3px solid; */
             border-radius: 10px;
             height: 100%;
             width: 70%;
-            max-width: 70%;
+            /* max-width: 70%; */
             flex-wrap: wrap;
+            gap: 50px;
+            justify-content: center;
         }
-        .home_body .robots_ctr .robot_ctr{
+        .home_body .robots_ctr .robot_ctr {
             display: flex;
             flex-direction: column;
             background-color: #c7fcec;
             box-shadow: 4px 4px 10px #00c9a7;
-            height: 250px;
+            height: 270px;
             width: 250px;
             border-radius: 10px;
             background-image: url("assets/bg1.png");
             background-size: cover;
+            align-items: center;
+            padding-top: 10px;
             transition: 
-            background-color 0.3s cubic-bezier(0.4,0,0.2,1),
-            height 0.3s cubic-bezier(0.4,0,0.2,1),
-            width 0.3s cubic-bezier(0.4,0,0.2,1),
-            box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
+                transform 0.3s cubic-bezier(0.4,0,0.2,1),
+                background-color 0.3s cubic-bezier(0.4,0,0.2,1),
+                box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
         }
-        .home_body .robots_ctr .robot_ctr:hover{
-            height: 260px;
-            width: 260px;
+        .home_body .robots_ctr .robot_ctr:hover {
             background-color: #e5fff7;
-            box-shadow: 4px 4px 10px #00c9a7;
+            box-shadow: 8px 8px 20px #00c9a7;
+            transform: scale(1.04) translateY(-8px);
         }
-
+        .home_body .robots_ctr .robot_ctr img {
+            border-radius: 50%;
+            background: #4b31a1;
+            height: 180px;
+            width: 180px;
+        }
+        .home_body .robots_ctr .robot_ctr h2 {
+            font-size: 18px;
+            align-self: baseline;
+            margin-left: 20px;
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+        .home_body .robots_ctr .robot_ctr p {
+            font-size: 15px;
+            align-self: baseline;
+            margin: 0 0 0 20px;
+        }
+        
 
     </style>
 </head>
@@ -87,9 +108,16 @@
         </div>
         <div class="home_body">
             <div class="robots_ctr">
-                <div class="robot_ctr">
-
+                <!-- <div class="robot_ctr">
+                    <img src="https://robohash.org/9?200x200" />
+                    <h2> Robot HTMLJSCSS </h2>
+                    <p>Ana robot nadi o kanfakar mzn</p>
                 </div>
+                <div class="robot_ctr">
+                    <img src="https://robohash.org/9?200x200" />
+                    <h2> Robot HTMLJSCSS </h2>
+                    <p>Ana robot nadi o kanfakar mzn</p>
+                </div> -->
             </div>
         </div>
     </div>

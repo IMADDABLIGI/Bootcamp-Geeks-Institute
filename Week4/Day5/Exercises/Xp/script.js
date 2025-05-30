@@ -71,3 +71,37 @@
           }
 ];
 
+let SEARCH = ''
+const input = document.querySelector(".search")
+
+
+
+const paintRobots = (robotsArr) => {
+    const robotsCtr = document.querySelector(".robots_ctr");
+    // console.log(robotsCtr);
+    
+    let html = ''
+    robotsArr.forEach(robot => {
+        html += `
+        <div class="robot_ctr">
+            <img src=${robot.image} />
+            <h2> ${robot.name} </h2>
+            <p> ${robot.email} </p>
+        </div>`
+    });
+    robotsCtr.innerHTML = html
+}
+
+if (SEARCH == '')
+    paintRobots(robots);
+
+input.addEventListener("input", (event) => {
+    event.preventDefault();
+    // console.log(event.target.value)
+    SEARCH = event.target.value
+    const robotsSearch = robots.filter((robot) =>
+        robot.name.toLowerCase().startsWith(SEARCH.toLowerCase())
+    );  
+    // console.log(robotsSearch)
+    paintRobots(robotsSearch);
+})
