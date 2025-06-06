@@ -1,0 +1,14 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  margin: 2rem;
+  background: #f0f0f0;
+}
+#emoji {
+  font-size: 5rem;
+}
+button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+}
