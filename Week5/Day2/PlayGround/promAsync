@@ -1,0 +1,18 @@
+const fnc = () => {
+    console.log("Before Waiting")
+    return (
+        new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log("After Waiting");
+                    resolve("Done Deal");
+                }, 2000);
+            })
+        )
+}
+
+const waiting = async () => {
+    const res = await fnc();
+    console.log(res);
+}
+
+waiting()
