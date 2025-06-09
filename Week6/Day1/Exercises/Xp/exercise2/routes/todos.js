@@ -29,7 +29,7 @@ router.put('/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const data = req.body;
 
-    const todo = todos[1];
+    const todo = todos.find(t => t.id === id);
     
     console.log(todo)
     if (!todo)
