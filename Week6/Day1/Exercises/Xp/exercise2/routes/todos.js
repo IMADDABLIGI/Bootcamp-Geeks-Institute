@@ -20,7 +20,6 @@ router.post('/', (req, res) => {
             completed: data.completed
         });
         res.json({ message: "Todo added", todo: data });
-        console.log("ToDo:", data);
     }
     else
         res.status(400).json({ error: "Invalid data" });
@@ -30,20 +29,29 @@ router.put('/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const data = req.body;
 
-    const todo = todos.find(t => t.id === id);
+    const todo = todos[1];
     
     console.log(todo)
-    // if (!todo) {
-    //     return res.status(404).json({ error: 'Todo not found' });
-    // }
-
-    // if (!data || typeof data.title !== 'string' || typeof data.completed !== 'boolean') {
-    //     return res.status(400).json({ error: 'Invalid data' });
-    // }
-
+    if (!todo)
+        return res.status(404).json({ error: 'Task not found' });
 
     todo.title = data.title;
     todo.completed = data.completed;
 
     res.json({ message: 'Todo updated', todo });
 });
+
+
+router.delete("/:id",(req, res)=>{
+    const id = parseInt(req.params.id);
+    const index = todos.findIndex(t => t.id === id);
+
+    if (index !== -1) {
+        todos.splice(index, 1);
+        res.json({ message: 'Todo deleted' });
+    } 
+    else 
+        res.status(404).json({ error: 'Task not found' });
+
+})
+
