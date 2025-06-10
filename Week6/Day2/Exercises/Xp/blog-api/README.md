@@ -59,4 +59,3 @@ blog-api/
 - PUT /api/posts/:id - Update post
 - DELETE /api/posts/:id - Delete post
 
-Visit http://localhost:3000 for full API documentation.
