@@ -23,7 +23,7 @@ npm install
 npm run dev
 ```
 
-### Production mode:
+### Production mode: 
 ```bash
 npm start
 ```
