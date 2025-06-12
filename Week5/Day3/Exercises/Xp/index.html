@@ -3,12 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-     <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
+    <title>Star Wars Characters</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <style>
         body {
             display: flex;
@@ -17,20 +13,17 @@
             width: 100%;
             justify-content: center;
             align-items: center;
-            /* background-color: aqua; */
             background-image: url(https://i.giphy.com/media/TxVVB6PfWMjE4/200.webp);
         }
         h1 {
             font-size: 80px;
             color: yellow;
-            /* font-family: 'Star Jedi', sans-serif; */
             font-family: 'Courier New', Courier, monospace;
         }
         div {
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* justify-content: center; */
             height: 300px;
             width: 500px;
             border: yellow 2px solid;
@@ -40,17 +33,19 @@
         button {
             margin-top: 10px;
             background-color: #ccc;
-            /* border: yellow 1px solid; */
             padding: 5px 10px;
-            border-radius: 10px;;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: yellow;
         }
     </style>
 </head>
 <body>
-    <h1> STAR WARS </h1>
-    <div>
-    </div>
-    <button onclick="findSomeone()"> Find someone </button>
-    <script src="script.js" ></script>
+    <h1>STAR WARS</h1>
+    <div id="character-info"></div>
+    <button onclick="findSomeone()">Find someone</button>
+    <script src="script.js"></script>
 </body>
 </html>
