@@ -23,7 +23,7 @@ const CarouselPage = () => {
                     <p className="legend">Japan</p>
                 </div>
                 <div>
-                    <img src={img4} alt="Slide 3" />
+                    <img src={img4} alt="Slide 4" />
                     <p className="legend">Las Vegas</p>
                 </div>
             </Carousel>
